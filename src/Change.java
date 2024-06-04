@@ -1,5 +1,6 @@
 public enum Change {
     LEFT,
     RIGHT,
-    DROP
+    DROP,
+    RIEN
 }

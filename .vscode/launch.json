@@ -10,6 +10,14 @@
             "request": "launch",
             "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "AppliJeu",
+            "projectName": "Puissance4_90949b99"
+        },
+        {
+            "type": "java",
+            "name": "AppliJeu",
+            "request": "launch",
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "AppliJeu",
             "projectName": "Puissance4_6198c3c2"
         },
         {

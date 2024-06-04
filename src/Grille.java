@@ -2,10 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.TranslateTransition;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -85,6 +82,8 @@ public class Grille extends GridPane{
             add(p, this.selectIndex, 0);
             p.setCenterY(ty);
             AppliJeu.WAITING = true;
+        }else if(change == Change.LEFT){
+            
         }
         this.selectIndex = modele.getSelectIndex();
         this.joueur = modele.getJoueur();

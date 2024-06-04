@@ -44,6 +44,7 @@ public class AppliJeu extends Application{
         root.setCenter(fenetreJeu());
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(new ControleurClavier(this, this.modele));
+        stage.setTitle("Puissance 4");
         stage.setScene(scene);
         stage.show();
     }
@@ -81,7 +82,7 @@ public class AppliJeu extends Application{
             Alert popup = popUpGagnee(this.modele.getGagnant());
             popup.setOnCloseRequest((e) -> {
                 this.reset();
-                this.grille.maj(this.modele, change);
+                this.grille.maj(this.modele, Change.RIEN);
                 this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
             });
             if(this.modele.getGagnant() == Equipe.JAUNE){
