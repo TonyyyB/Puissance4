@@ -91,6 +91,14 @@ public class AppliJeu extends Application{
                 this.scoreR.setText(Integer.toString(Integer.parseInt(this.scoreR.getText())+1));
             }
             popup.showAndWait();
+        }else if(this.modele.estPerdu()){
+            Alert popup = popUpMatchNul();
+            popup.setOnCloseRequest((e) -> {
+                this.reset();
+                this.grille.maj(this.modele, Change.RIEN);
+                this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
+            });
+            popup.showAndWait();
         }
     }
 
@@ -98,6 +106,13 @@ public class AppliJeu extends Application{
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Les "+gagnant.getNom()+" ont gagnés !");
         alert.setHeaderText("L'équipe des "+gagnant.getNom()+" a gagné !");
+        return alert;
+    }
+
+    public Alert popUpMatchNul(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Match nul");
+        alert.setHeaderText("Match nul, les deux équipes ont remplies le plateau");
         return alert;
     }
 

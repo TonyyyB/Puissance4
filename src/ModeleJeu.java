@@ -5,6 +5,7 @@ public class ModeleJeu {
     private int selectIndex;
     private Equipe joueur;
     private Equipe gagnant;
+    private boolean perdu;
 
     public ModeleJeu(Equipe joueur){
         init();
@@ -57,9 +58,13 @@ public class ModeleJeu {
     }
 
     public void verifFin(){
+        boolean remplie = true;
         for (int l = 0; l < LIGNES; l++) {
             for (int c = 0; c < COLONNES; c++) {
-                if(this.getCase(l, c) == Equipe.AUCUNE) continue;
+                if(this.getCase(l, c) == Equipe.AUCUNE){
+                    remplie = false;
+                    continue;
+                }
                 Direction[] dirs = Direction.values();
                 for (Direction dir : dirs) {
                     Coords co = dir.getVoisin(l, c);
@@ -68,6 +73,7 @@ public class ModeleJeu {
                 }
             }
         }
+        this.perdu = remplie;
     }
 
     private void verif(int l, int c, Direction dir, int i){
@@ -100,6 +106,10 @@ public class ModeleJeu {
 
     public boolean estGagnee(){
         return this.gagnant!= null;
+    }
+
+    public boolean estPerdu(){
+        return this.perdu;
     }
 
     public Equipe getGagnant() {

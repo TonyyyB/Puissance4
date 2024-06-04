@@ -59,7 +59,7 @@ public class Grille extends GridPane{
         }
         final Pion selected = this.selection.get(this.selectIndex);
         selected.setEquipe(Equipe.AUCUNE);
-        if(change == Change.DROP){
+        if(change == Change.DROP && changed != null){
             final Pion toChange = changed;
             final Equipe dernierJoueur = this.joueur;
             selected.setEquipe(Equipe.AUCUNE);
@@ -82,8 +82,6 @@ public class Grille extends GridPane{
             add(p, this.selectIndex, 0);
             p.setCenterY(ty);
             AppliJeu.WAITING = true;
-        }else if(change == Change.LEFT){
-            
         }
         this.selectIndex = modele.getSelectIndex();
         this.joueur = modele.getJoueur();
