@@ -1,7 +1,11 @@
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
@@ -25,6 +29,7 @@ public class AppliJeu extends Application{
     private Label scoreJ;
     private Label scoreR;
     public static boolean WAITING;
+
     @Override
     public void init() throws Exception {
         this.modele = new ModeleJeu(Equipe.JAUNE);
@@ -35,11 +40,16 @@ public class AppliJeu extends Application{
     public void start(Stage stage) throws Exception {
         BorderPane root = new BorderPane();
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        StackPane top = new StackPane();
+
+        BorderPane top = new BorderPane();
         top.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+
         Label titre = new Label("Puissance 4");
+        Button parametres = new Button("Paramètres");
+        parametres.setFocusTraversable(false);
         titre.setFont(new Font(40));
-        top.getChildren().add(titre);
+        top.setLeft(titre);
+        top.setRight(parametres);
         root.setTop(top);
         root.setCenter(fenetreJeu());
         Scene scene = new Scene(root);
@@ -49,6 +59,10 @@ public class AppliJeu extends Application{
         stage.show();
     }
 
+    /**
+     * Créer la fenetre du jeu
+     * @return Pane de la fenetre de jeu
+     */
     public Pane fenetreJeu(){
         BorderPane bp = new BorderPane();
         bp.setPadding(new Insets(10));
@@ -75,10 +89,22 @@ public class AppliJeu extends Application{
         return bp;
     }
 
+    public Dialog<List<String>> dialogParametre(){
+        return null;
+    }
+
     public void maj(Change change){
         this.grille.maj(this.modele, change);
         this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
-        if(this.modele.estGagnee()){
+        if(this.modele.estPerdu()){
+            Alert popup = popUpMatchNul();
+            popup.setOnCloseRequest((e) -> {
+                this.reset();
+                this.grille.maj(this.modele, Change.RIEN);
+                this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
+            });
+            popup.showAndWait();
+        }else if(this.modele.estGagnee()){
             Alert popup = popUpGagnee(this.modele.getGagnant());
             popup.setOnCloseRequest((e) -> {
                 this.reset();
@@ -90,14 +116,6 @@ public class AppliJeu extends Application{
             }else if(this.modele.getGagnant() == Equipe.ROUGE){
                 this.scoreR.setText(Integer.toString(Integer.parseInt(this.scoreR.getText())+1));
             }
-            popup.showAndWait();
-        }else if(this.modele.estPerdu()){
-            Alert popup = popUpMatchNul();
-            popup.setOnCloseRequest((e) -> {
-                this.reset();
-                this.grille.maj(this.modele, Change.RIEN);
-                this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
-            });
             popup.showAndWait();
         }
     }

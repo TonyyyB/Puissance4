@@ -7,33 +7,35 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class Grille extends GridPane{
-    
+public class Grille extends StackPane{
+    private GridPane grid;
     private List<Pion> selection;
     private List<List<Pion>> grille;
     private int selectIndex;
     private Equipe joueur;
     
     public Grille(){
-        this.selectIndex = 3;
+        this.selectIndex = ModeleJeu.COLONNES/2;
         this.joueur = Equipe.JAUNE;
         initPions();
-        this.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(20), new Insets(72,0,0,0))));
+        grid.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(20), new Insets(Pion.SIZE*3,0,0,0))));
     }
 
     private void initPions(){
-        this.setVgap(10);
-        this.setHgap(10);
-        this.setPadding(new Insets(10));
-        this.getChildren().clear();
+        this.grid = new GridPane();
+        grid.setVgap(Pion.SIZE*0.8);
+        grid.setHgap(Pion.SIZE*0.8);
+        grid.setPadding(new Insets(10));
+        grid.getChildren().clear();
         this.selection = new ArrayList<>();
         for (int c = 0; c < ModeleJeu.COLONNES; c++) {
             Pion p = new Pion();
             if(c==selectIndex) p.setEquipe(joueur);
-            this.add(p, c, 0);
+            grid.add(p, c, 0);
             this.selection.add(p);
         }
         this.grille = new ArrayList<>();
@@ -41,10 +43,15 @@ public class Grille extends GridPane{
             this.grille.add(new ArrayList<>());
             for (int c = 0; c < ModeleJeu.COLONNES; c++) {
                 Pion p = new Pion();
-                this.add(p, c, l+1);
+                grid.add(p, c, l+1);
                 this.grille.get(l).add(p);
             }
         }
+        this.getChildren().add(grid);
+    }
+
+    private void initGrilleImage(){
+
     }
 
     public void maj(ModeleJeu modele, Change change){
@@ -73,13 +80,13 @@ public class Grille extends GridPane{
             tt.setToY(ty);
             tt.setDuration(Duration.millis(500));
             tt.setOnFinished((event) -> {
-                this.getChildren().remove(p);
+                grid.getChildren().remove(p);
                 this.selection.get(this.selectIndex).setEquipe(this.joueur);
                 toChange.setEquipe(dernierJoueur);
                 AppliJeu.WAITING = false;
             });
             tt.play();
-            add(p, this.selectIndex, 0);
+            grid.add(p, this.selectIndex, 0);
             p.setCenterY(ty);
             AppliJeu.WAITING = true;
         }
