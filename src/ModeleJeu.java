@@ -1,6 +1,7 @@
 public class ModeleJeu {
     public static final int LIGNES = 6;
     public static final int COLONNES = 7;
+    public static final int PUISSANCE = 4;
     private Equipe[][] grille;
     private int selectIndex;
     private Equipe joueur;
@@ -80,7 +81,7 @@ public class ModeleJeu {
         Coords co = dir.getVoisin(l, c);
         if(co.getC() < 0 || co.getC() >= COLONNES || co.getL() < 0 || co.getL() >= LIGNES) return;
         if(this.grille[co.getL()][co.getC()] == this.grille[l][c]){
-            if(i == 3){
+            if(i == PUISSANCE-1){
                 this.gagnant = this.grille[l][c];
                 return;
             }
@@ -101,7 +102,9 @@ public class ModeleJeu {
     }
 
     public void setJoueur(Equipe joueur) {
+        System.out.println(this.joueur);
         this.joueur = joueur;
+        System.out.println(this.joueur);
     }
 
     public boolean estGagnee(){

@@ -1,7 +1,7 @@
 import javafx.scene.shape.Circle;
 
 public class Pion extends Circle{
-    private static final double SIZE = 30;
+    public static final double SIZE = 20;
     private Equipe equipe;
     public Pion(){
         this.equipe = Equipe.AUCUNE;
