@@ -27,7 +27,7 @@ public class Grille extends StackPane{
     }
 
     private void initPions(){
-        this.grid = new GridPane();
+        if(this.grid == null){this.grid = new GridPane();this.getChildren().add(grid);}else{this.grid.getChildren().clear();}
         grid.setVgap(Pion.SIZE*0.8);
         grid.setHgap(Pion.SIZE*0.8);
         grid.setPadding(new Insets(10));
@@ -48,7 +48,6 @@ public class Grille extends StackPane{
                 this.grille.get(l).add(p);
             }
         }
-        this.getChildren().add(grid);
     }
 
     private void initGrilleImage(){
