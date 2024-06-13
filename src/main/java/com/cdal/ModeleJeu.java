@@ -1,7 +1,9 @@
+package main.java.com.cdal;
+
 public class ModeleJeu {
     public static final int LIGNES = 6;
     public static final int COLONNES = 7;
-    public static final int PUISSANCE = 4;
+    public static final int PUISSANCE = 8;
     private Equipe[][] grille;
     private int selectIndex;
     private Equipe joueur;

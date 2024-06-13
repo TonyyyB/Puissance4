@@ -1,3 +1,4 @@
+package main.java.com.cdal;
 public class Coords{
     private int l;
     private int c;

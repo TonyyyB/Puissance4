@@ -1,3 +1,4 @@
+package main.java.com.cdal;
 import javafx.scene.paint.Color;
 
 public enum Equipe {

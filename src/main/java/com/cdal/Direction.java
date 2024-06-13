@@ -1,3 +1,5 @@
+package main.java.com.cdal;
+
 public enum Direction{
     HAUT_GAUCHE(-1, -1),
     HAUT(-1, 0),
