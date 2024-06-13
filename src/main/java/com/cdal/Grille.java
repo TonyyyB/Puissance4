@@ -12,13 +12,17 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+
 public class Grille extends StackPane{
-    private GridPane grid;
-    private List<Pion> selection;
-    private List<List<Pion>> grille;
-    private int selectIndex;
-    private Equipe joueur;
+    private GridPane grid; // grille de jeu
+    private List<Pion> selection; // selection de pions
+    private List<List<Pion>> grille; // grille de pions
+    private int selectIndex; // index de la selection
+    private Equipe joueur; // joueur courant
     
+    /**
+     * Constructeur de la classe Grille
+     */
     public Grille(){
         this.selectIndex = ModeleJeu.COLONNES/2;
         this.joueur = Equipe.JAUNE;
@@ -26,6 +30,9 @@ public class Grille extends StackPane{
         grid.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(20), new Insets(Pion.SIZE*3,0,0,0))));
     }
 
+    /**
+     * Initialisation des pions
+     */
     private void initPions(){
         if(this.grid == null){this.grid = new GridPane();this.getChildren().add(grid);}else{this.grid.getChildren().clear();}
         grid.setVgap(Pion.SIZE*0.8);
@@ -50,10 +57,16 @@ public class Grille extends StackPane{
         }
     }
 
+    
     private void initGrilleImage(){
 
     }
 
+    /**
+     * Mise à jour de la grille
+     * @param modele
+     * @param change
+     */
     public void maj(ModeleJeu modele, Change change){
         Pion changed = null;
         for (int l = 0; l < ModeleJeu.LIGNES; l++) {
@@ -95,12 +108,19 @@ public class Grille extends StackPane{
         if(changed == null) this.selection.get(this.selectIndex).setEquipe(this.joueur);
     }
 
+    /**
+     * Selection du pion
+     * @param index
+     */
     public void setJoueur(Equipe joueur) {
         this.joueur = joueur;
         this.selection.get(this.selectIndex).setEquipe(this.joueur);
         this.selection.get(this.selectIndex).update();
     }
 
+    /**
+     * Reset de la grille
+     */
     public void reset(){
         this.initPions();
     }

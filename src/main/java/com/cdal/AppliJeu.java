@@ -20,8 +20,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 /**
- * AppliJeu
+ * Classe principale de l'application du jeu Puissance 4.
+ * Cette classe étend la classe Application de JavaFX et représente l'interface graphique du jeu.
  */
 public class AppliJeu extends Application{
     private ModeleJeu modele;
@@ -31,12 +33,19 @@ public class AppliJeu extends Application{
     private Label scoreR;
     public static boolean WAITING;
 
+    /**
+     * Constructeur de la classe AppliJeu
+     */
     @Override
     public void init() throws Exception {
         this.modele = new ModeleJeu(Equipe.JAUNE);
         WAITING = false;
     }
 
+    /**
+     * Méthode start de la classe Application
+     * @param stage La fenêtre de l'application
+     */
     @Override
     public void start(Stage stage) throws Exception {
         BorderPane root = new BorderPane();
@@ -89,11 +98,17 @@ public class AppliJeu extends Application{
         bp.setCenter(this.grille);
         return bp;
     }
-
+    /**
+     * Créer une fenetre de paramètres
+     * @return La fenetre de paramètres
+     */
     public Dialog<List<String>> dialogParametre(){
         return null;
     }
-
+    /**
+     * Met à jour la grille et le tour de jeu
+     * @param change Le changement effectué
+     */
     public void maj(Change change){
         this.grille.maj(this.modele, change);
         this.tourL.setText("Au tour des " + this.modele.getJoueur().getNom());
@@ -120,7 +135,11 @@ public class AppliJeu extends Application{
             popup.showAndWait();
         }
     }
-
+    /**
+     * Affiche une popup pour indiquer que l'équipe gagnante a gagnée
+     * @param gagnant L'équipe gagnante
+     * @return La popup
+     */
     public Alert popUpGagnee(Equipe gagnant){
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Les "+gagnant.getNom()+" ont gagnés !");
@@ -128,6 +147,10 @@ public class AppliJeu extends Application{
         return alert;
     }
 
+    /**
+     * Affiche une popup pour indiquer que le match est nul
+     * @return La popup
+     */
     public Alert popUpMatchNul(){
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Match nul");
@@ -135,15 +158,26 @@ public class AppliJeu extends Application{
         return alert;
     }
 
+    /**
+     * Réinitialise le jeu
+     */
     public void reset(){
         this.modele.reset();
         this.grille.reset();
     }
 
+    /**
+     * Retourne le modèle du jeu
+     * @return Le modèle du jeu
+     */
     public Grille getGrille() {
         return grille;
     }
 
+    /**
+     * Retourne le modèle du jeu
+     * @return Le modèle du jeu
+     */
     public static void main(String[] args) {
         launch(AppliJeu.class);
     }
