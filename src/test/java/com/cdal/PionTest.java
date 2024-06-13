@@ -2,31 +2,30 @@ package test.java.com.cdal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.beans.Transient;
-
-import org.junigt.jupier.api.BeforeEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import main.java.com.cdal.*;
 
 public class PionTest {
     
     private Pion pion;
-    private Equipe equipe;
 
     @BeforeEach
     public void setUp(){
         pion = new Pion();
-        pion.setEquipe(equipe.JAUNE);
+        pion.setEquipe(Equipe.JAUNE);
     }
 
     @Test
     public void testGetEquipe(){
-        assertEquals(equipe.JAUNE, pion.getEquipe());
+        assertEquals(Equipe.JAUNE, pion.getEquipe());
     }
 
     @Test
     public void testSetEquipe(){
-        pion.setEquipe(equipe.ROUGE);
-        assertEquals(equipe.ROUGE, pion.getEquipe());
+        pion.setEquipe(Equipe.ROUGE);
+        assertEquals(Equipe.ROUGE, pion.getEquipe());
     }
 
     @Test
@@ -37,6 +36,6 @@ public class PionTest {
     @Test
     public void testReset(){
         pion.reset();
-        assertEquals(equipe.AUCUNE, pion.getEquipe());
+        assertEquals(Equipe.AUCUNE, pion.getEquipe());
     }
 }
